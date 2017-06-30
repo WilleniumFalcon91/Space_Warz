@@ -45,7 +45,7 @@ def main():
     screen = pygame.display.set_mode((650, 650))
     pygame.display.set_caption('My Game')
 
-    pygame.mixer.music.load("Star Warz - Imperial March (Goblins from Mars Trap Remix).mp3")
+    pygame.mixer.music.load("Star Wars - Imperial March (Goblins from Mars Trap Remix).mp3")
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
 
