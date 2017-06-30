@@ -21,7 +21,6 @@ class Spaceship(pygame.sprite.Sprite):
         ship = pygame.image.load(file_name).convert_alpha()
         screen.blit(ship, (self.x, self.y))
 
-            
 
 
 
