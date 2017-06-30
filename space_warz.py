@@ -7,6 +7,7 @@ class Spaceship(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(file_name).convert_alpha()
         self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
         self.x = x
         self.y = y
         self.speed_x = 0
@@ -15,11 +16,30 @@ class Spaceship(pygame.sprite.Sprite):
     def update(self):
         self.x += self.speed_x
         self.y += self.speed_y
+        self.rect.topleft = self.x, self.y 
+
+    # def get_upper_left_corner(self):
+    #     return (self.x, self.y) 
+    
+    # def get_lower_left_corner(self):
+    #     self.x self.image.get_rect()
 
 
     def render(self, screen, file_name):
         ship = pygame.image.load(file_name).convert_alpha()
         screen.blit(ship, (self.x, self.y))
+    
+    def did_crash(self, enemy_tie_fighter):
+        return self.image.get_rect().colliderect(enemy_tie_fighter.image.get_rect())
+        
+
+    # def check_collisions(self):
+	# 	collidedict = sprite.collide(self.Spaceship, True, False)
+	# 	if collidedict:
+	# 		for value in collidedict.values():
+	# 			for currentSprite in value:
+	# 				self.Spaceship.remove(currentSprite)
+
 
 
 # class X_Wing(Spaceship):
@@ -60,10 +80,24 @@ def main():
     enemy_tie_fighter1 = Spaceship(90, 0, "TieFighter-icon.png")
     enemy_tie_fighter2 = Spaceship(290, 0, "TieFighter-icon.png")
     enemy_tie_fighter3 = Spaceship(490, 0, "TieFighter-icon.png")
+
+    enemy_tie_fighters = pygame.sprite.RenderPlain()
+    enemy_tie_fighters.add(enemy_tie_fighter1)
+    enemy_tie_fighters.add(enemy_tie_fighter2)
+    enemy_tie_fighters.add(enemy_tie_fighter3)
+    print enemy_tie_fighters
+    
+    xwings = pygame.sprite.RenderPlain()
+    xwings.add(xwing)
+    print xwings
     # Game initialization      
 
     stop_game = False
     while not stop_game:
+        collisions = pygame.sprite.groupcollide(xwings, enemy_tie_fighters, True, False)
+        print collisions
+        if collisions:
+            print "hit"
         for event in pygame.event.get():
             # Event handling
             #sound
@@ -108,7 +142,15 @@ def main():
         if enemy_tie_fighter3.y > 650:
              enemy_tie_fighter3 = Spaceship(490, 0, "TieFighter-icon.png")
             
+        # enemy_tie_fighter_list = [enemy_tie_fighter1, enemy_tie_fighter2, enemy_tie_fighter3]
+  
+        #crash check 
+        # print xwing.did_crash(enemy_tie_fighter1)
+        # print xwing.did_crash(enemy_tie_fighter2)
+        # print xwing.did_crash(enemy_tie_fighter3)
 
+        # print pygame.sprite.spritecollide(xwing, enemy_tie_fighter2)
+        # print pygame.sprite.spritecollide(xwing, enemy_tie_fighter3)
 
         # Draw background
         screen.blit(background, (0,0))
