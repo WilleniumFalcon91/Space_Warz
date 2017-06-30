@@ -22,8 +22,6 @@ class Spaceship(pygame.sprite.Sprite):
         screen.blit(ship, (self.x, self.y))
 
 
-
-
 # class X_Wing(Spaceship):
 #     def ship(self, ship_type):
 #         xwing = pygame.image.load("new-xwing.png").convert_alpha()
